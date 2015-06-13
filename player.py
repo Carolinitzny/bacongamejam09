@@ -9,7 +9,7 @@ from util import draw
 
 class Player(Drawable, Updatable, MouseClickListener):
     def __init__(self):
-        self.pos = Vector(400, 300)
+        self.pos = Vector(0, 0)
         self.size = 1
         #Richtung in die er schaut (1 nach rechts, -1 nach links)
         self.dir = 1
@@ -27,5 +27,5 @@ class Player(Drawable, Updatable, MouseClickListener):
         self.dir = -1 if abs(v.angle) > math.pi/2 else 1 
         self.angle = v.y/2* -self.dir
 
-    def draw(self, surface):
-        draw(surface, player, self.pos, scale=self.size * Vector(self.dir, 1), angle=self.angle)
+    def draw(self, surface, camera):
+        draw(surface, player, self.pos, size=Vector(self.size, None),scale =Vector(self.dir, 1), angle=self.angle, camera=camera)

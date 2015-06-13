@@ -4,6 +4,7 @@ import sys
 
 from vector import Vector
 from config import screensize
+from camera import Camera
 
 pygame.init()
 screen = pygame.display.set_mode(screensize.tuple)
@@ -19,6 +20,8 @@ player = Player()
 world.append(player)
 
 
+camera = Camera()
+
 #main loop
 while True:
     #Zeit in Sekunden
@@ -30,14 +33,12 @@ while True:
 
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                sys.exit()
-
-            elif event.key == pygame.K_p:
-                pygame.draw.rect( screen ,(0, 150,0), (0,0, 100 , 50))  
+                sys.exit() 
     
     for a in world:
         if isinstance(a, Updatable):
             a.update(dt)
+    camera.translate = player.pos
 
     screen.fill((5,12,20))
     
@@ -45,7 +46,7 @@ while True:
 
     for a in world:
         if isinstance(a, Drawable):
-            a.draw(screen)
+            a.draw(screen, camera)
 
 
 

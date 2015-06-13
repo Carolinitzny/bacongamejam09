@@ -59,7 +59,9 @@ class Vector(object):
     def __len__(self):
         return self.length
 
+    def __neg__(self):
+        return Vector(-self.x, -self.y)
+
     @property
     def tuple(self):
         return (self.x, self.y)
-

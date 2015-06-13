@@ -1,5 +1,5 @@
 class Drawable(object):
-    def draw(self, surface):
+    def draw(self, surface, camera):
         pass
 
 class Updatable(object):
