@@ -2,15 +2,17 @@
 import pygame 
 import sys
 
+from vector import Vector
+from config import screensize
+
 pygame.init()
-screen = pygame.display.set_mode((824, 720))
+screen = pygame.display.set_mode(screensize.tuple)
 clock = pygame.time.Clock()
 
 
 import resources
 from player import Player 
 from base import *
-
 
 world = []
 player = Player()

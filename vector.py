@@ -13,7 +13,7 @@ class Vector(object):
 
     def normalize(self):
         l = self.length
-        return Vector(x/l, y/l)
+        return Vector(self.x/l, self.y/l)
 
     def rotate(self, theta):
         dc, ds = math.cos(theta), math.sin(theta)
