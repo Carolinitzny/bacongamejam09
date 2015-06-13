@@ -51,8 +51,8 @@ class Vector(object):
         assert type(other) == Vector, "Vector subtraction only with vectors"
         return Vector(self.x - other.x, self.y - other.y)
 
-    def __nonzero__(self, other):
-        return self.x and self.y
+    def __nonzero__(self):
+        return self.x != 0 or self.y != 0
 
     def __iter__(self):
         return [self.x, self.y].__iter__()

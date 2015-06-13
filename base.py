@@ -6,6 +6,12 @@ class Updatable(object):
     def update(self, dt):
         pass
 
+class Mortal(object):
+    def __init__(self):
+        self.alive = True
+    def die(self):
+        self.alive = False
+
 class MouseClickListener(object):
     def onMouseClick(self, button, position):
         pass          

@@ -31,7 +31,7 @@ def draw(surface,img, position, angle=0, scale=None, origin=Vector(0.5,0.5), cam
         
         img = pygame.transform.scale(img, (w,h))
 
-    origin =origin - Vector(0.5,0.5) 
+    origin = origin - Vector(0.5,0.5) 
     origin *= Vector(img.get_width(), img.get_height())
     origin = origin.rotate(angle)
 
