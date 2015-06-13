@@ -72,3 +72,7 @@ class Vector(object):
     @property
     def tuple(self):
         return (self.x, self.y)
+
+    def __round__(self):
+        return Vector(int(round(self.x)), int(round(self.y)))
+

@@ -16,5 +16,5 @@ class Camera(object):
         return position, angle, scale
 
     def ray(self, pos):
-        return (pos + self.translate) * 1.0 / self.scale
+        return (pos - screensize/2) * 1.0 / self.scale + self.translate
 
