@@ -19,6 +19,10 @@ class Vector(object):
         dc, ds = math.cos(theta), math.sin(theta)
         return Vector(dc*self.x - ds*self.y, ds*self.x + dc*self.y)
 
+    @property
+    def angle(self):
+        return math.atan2(self.y, self.x)
+
     def __mul__(self, other):
         if type(other) == Vector:
             # Warning, this is component-wise
