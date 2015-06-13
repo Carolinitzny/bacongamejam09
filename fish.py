@@ -5,7 +5,7 @@ from random import randint, random, uniform, choice
 import effects
 from base import *
 from vector import Vector
-from resources import fish01
+from resources import fishes
 from config import screensize, worldsize
 from util import draw
 from player import Player
@@ -16,9 +16,9 @@ class Fish(Drawable, Updatable, Mortal):
 
     def __init__(self, player):
         super(Fish, self).__init__()
-        self.size = 0.3
+        self.size = uniform(0.2, 0.35)
         self.color = (randint(100, 255),randint(100, 255),randint(100, 255))
-        self.image = effects.apply(fish01, effects.Multiply(self.color))
+        self.image = effects.apply(choice(fishes), effects.Multiply(self.color))
         self.dir = 1
         self.angle = 0
         self.pos = Vector(choice([-1, 1]) * 1.1 * worldsize.x * 0.5 + player.pos.x, uniform(-0.5,0.4)*worldsize.y)
