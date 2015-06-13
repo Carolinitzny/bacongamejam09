@@ -15,3 +15,6 @@ class Camera(object):
         # TODO: rotation
         return position, angle, scale
 
+    def ray(self, pos):
+        return (pos + self.translate) * 1.0 / self.scale
+

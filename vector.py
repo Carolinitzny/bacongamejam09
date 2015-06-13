@@ -36,6 +36,10 @@ class Vector(object):
         return self.__mul__(other)
 
     def __div__(self, other):
+        if type(other) == Vector:
+            # Warning, this is component-wise
+            return Vector(self.x / other.x, self.y * other.y)
+
         assert type(other) in (int, float), "Vector division only with scalars"
         return Vector(self.x / other, self.y / other)
 
