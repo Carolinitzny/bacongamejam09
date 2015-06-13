@@ -53,3 +53,7 @@ class Vector(object):
 
     def __len__(self):
         return self.length
+
+    @property
+    def tuple(self):
+        return (self.x, self.y)
