@@ -21,6 +21,18 @@
      id="defs4">
     <linearGradient
        inkscape:collect="always"
+       id="linearGradient4203">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop4205" />
+      <stop
+         style="stop-color:#5a5a5a;stop-opacity:1"
+         offset="1"
+         id="stop4207" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
        id="linearGradient4175">
       <stop
          style="stop-color:#effaff;stop-opacity:1;"
@@ -66,6 +78,15 @@
          stdDeviation="0.94107142"
          id="feGaussianBlur5237" />
     </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4203"
+       id="linearGradient4209"
+       x1="190.88696"
+       y1="753.79578"
+       x2="191.41167"
+       y2="776.01917"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -74,9 +95,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="200.08897"
-     inkscape:cy="257.94453"
+     inkscape:zoom="7.9195959"
+     inkscape:cx="210.69067"
+     inkscape:cy="285.72209"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -230,6 +251,39 @@
            rx="2.9017856"
            ry="4.6875" />
       </g>
+    </g>
+    <g
+       id="g4196"
+       inkscape:export-filename="/home/paul/src/bacongamejam09/gfx/fish01.png"
+       inkscape:export-xdpi="78.160004"
+       inkscape:export-ydpi="78.160004">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4185"
+         d="m 203.672,756.51378 c -6.33797,-6.31345 -7.49033,-8.46003 -7.49033,-8.46003 0,0 -8.49864,4.54569 -14.69257,6.31346 -6.19393,1.76776 -7.49033,1.76776 -7.49033,1.76776 l 1.44045,3.15673 z"
+         style="fill:#474747;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4188"
+         d="m 203.54574,768.63561 c 2.27284,4.16688 5.3033,4.67196 4.54568,7.57615 -0.75761,2.90419 -2.65165,3.91434 -2.65165,3.91434 0,0 -3.03046,-7.95495 -4.67195,-9.84899 -1.6415,-1.89404 2.77792,-1.6415 2.77792,-1.6415 z"
+         style="fill:#474747;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4191"
+         d="m 184.22658,770.02457 c -6.06092,5.80838 -8.08123,9.84899 -8.08123,9.84899 l -2.0203,-11.11168 z"
+         style="fill:#474747;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1" />
+      <path
+         sodipodi:nodetypes="cczccczzc"
+         inkscape:connector-curvature="0"
+         id="path4172"
+         d="m 152.1085,753.75428 c 3.67795,10.29753 5.04107,12.89264 -0.24384,22.30629 0,0 10.24266,-6.45686 15.21306,-6.2509 4.97039,0.20596 18.72023,4.30227 28.53993,4.30469 10.67302,10e-5 19.32911,-2.14471 24.02259,-7.66398 l 0.31331,-2.04854 c -1.6425,-4.89727 -9.74569,-9.49288 -23.57828,-9.01609 -13.8326,0.47679 -24.81205,6.76766 -29.49315,6.79413 -4.6811,0.0265 -14.31377,-7.81247 -14.77362,-8.4256 z"
+         style="opacity:1;fill:url(#linearGradient4209);fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <circle
+         r="1.7046324"
+         cy="762.00647"
+         cx="203.98769"
+         id="path4194"
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     </g>
   </g>
 </svg>
