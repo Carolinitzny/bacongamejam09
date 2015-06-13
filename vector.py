@@ -21,7 +21,8 @@ class Vector(object):
 
     def __mul__(self, other):
         if type(other) == Vector:
-            assert False, "Vector product not defined (yet)."
+            # Warning, this is component-wise
+            return Vector(self.x * other.x, self.y * other.y)
 
         assert type(other) in (int, float), "Vector multiplication only with scalars"
 
@@ -57,3 +58,4 @@ class Vector(object):
     @property
     def tuple(self):
         return (self.x, self.y)
+
