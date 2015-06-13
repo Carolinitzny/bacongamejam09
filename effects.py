@@ -1,13 +1,13 @@
 import pygame
 
 """
-example usage:
+Example usage:
 
-import effects, pygame
-img = pygame.image.load('some-image.png')
+    import effects, pygame
+    img = pygame.image.load('some-image.png')
 
-# tints the image red
-effects.apply(effects.Multiply([255, 0, 0]))
+    # tints the image red
+    red_img = effects.apply(img, effects.Multiply([255, 0, 0]))
 
 """
 
@@ -31,6 +31,7 @@ class Add(_MathOp):
 
 def apply(img, kernel):
     """applies the kernel (function of signature: color, image, x, y) to every pixel of the surface"""
+    img = img.copy()
     img.lock()
 
     for x in range(img.get_width()):
