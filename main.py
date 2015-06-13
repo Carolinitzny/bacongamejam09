@@ -1,26 +1,26 @@
 #!/usr/bin/env python2
-import pygame 
+import pygame
+pygame.init()
+
 import sys
 
 from vector import Vector
-from config import screensize
+from config import screensize, fullscreen
 from camera import Camera
 
-pygame.init()
 screen = pygame.display.set_mode(screensize.tuple)
 clock = pygame.time.Clock()
 
 
 import resources
-from player import Player 
+from player import Player
 from base import *
 
 world = []
 player = Player()
 world.append(player)
 
-
-camera = Camera()
+camera = Camera(scale=screensize.x/5)
 
 #main loop
 while True:
@@ -33,15 +33,15 @@ while True:
 
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                sys.exit() 
-    
+                sys.exit()
+
     for a in world:
         if isinstance(a, Updatable):
             a.update(dt)
     camera.translate = player.pos
 
     screen.fill((5,12,20))
-    
+
 
 
     for a in world:
