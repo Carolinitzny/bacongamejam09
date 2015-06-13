@@ -21,20 +21,29 @@ class Fish(Drawable, Updatable, Mortal):
         self.image = effects.apply(fish01, effects.Multiply(self.color))
         self.dir = 1
         self.angle = 0
-        self.pos = Vector(choice((-1,1))* 1.1 * worldsize.x* 0.5 + player.pos.x, uniform(-0.5,0.5)*worldsize.y- 0.3)
-        
+        self.pos = Vector(choice([-1, 1]) * 1.1 * worldsize.x * 0.5 + player.pos.x, uniform(-0.5,0.4)*worldsize.y)
+
         self.player = player
-        self.velocity = Vector(uniform(-1,1),0)
+        self.velocity = Vector(uniform(-1, 1),0)
+        self.time = uniform(0, math.pi)
+        self.frequency = uniform(1, 15)
 
     def update(self, dt):
-        dist = (self.player.pos - self.pos).length 
+        dist = (self.player.pos - self.pos).length
         #if ( dist < 0.5 :
             # self.dir *= -1
 
-        self.pos += dt*self.velocity 
+        self.pos += dt*self.velocity
         #stirbt, wenn er zu weit vom Player weg ist
         if dist > 10:
             self.die()
+
+        self.time += dt
+
+        self.velocity.y = -self.velocity.x * math.sin(self.time * self.frequency) * 0.1
+        self.angle = math.sin(self.time * self.frequency) * 0.1
+
+        self.dir = -1 if self.velocity.x < 0 else 1
 
 
     def draw(self, surface, camera):

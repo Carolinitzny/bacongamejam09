@@ -13,7 +13,7 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
         self.size = 1
         #Richtung in die er schaut (1 nach rechts, -1 nach links)
         self.dir = 1
-        self.speed = 1
+        self.speed = 2
         self.time = 0
         self.angle = 0
         self.light = 1
@@ -45,10 +45,18 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
         v2 =  v * self.speed * speed
         f = dt * 2
         self.velocity = v2 * f + self.velocity * (1 - f)
+        self.velocity.y *= (1 - dt * 0.1)
         self.pos += self.velocity * dt * boost
 
         self.dir = -1 if self.velocity.x < 0 else 1
-        self.angle = v.y/2* -self.dir * speed
+
+        # winkel setzen in richtung der velocity
+        self.angle = -self.velocity.angle
+        # winkel richtung x-achse halbieren
+        if abs(self.angle) > math.pi/2:
+            self.angle = math.pi - (math.pi - self.angle)/2 + (math.pi if self.angle > 0 else 0)
+        else:
+            self.angle /= 2
 
     def onMouseClick(self, button, position):
         if button == 3:

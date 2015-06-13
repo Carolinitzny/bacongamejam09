@@ -53,14 +53,14 @@ while True:
     if fishtimer <= 0:
         fish = Fish(player)
         world.append(fish)
-        fishtimer = uniform(0, 5)
+        fishtimer = uniform(0, 2)
 
     for a in world:
         if isinstance(a, Updatable):
             a.update(dt)
-    camera.translate.x = player.pos.x
 
-
+    f = dt * 1
+    camera.translate.x = camera.translate.x * (1 - f) + f * player.pos.x
 
     #draw
     screen.fill((5,12,20))
