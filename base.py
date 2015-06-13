@@ -2,7 +2,7 @@ class Drawable(object):
     def draw(self, surface):
         pass
 
-class Updateable(object):
+class Updatable(object):
     def update(self, dt):
         pass
 
