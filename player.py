@@ -30,9 +30,9 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
         #obere Grenze
         if self.pos.y < - worldsize.y/2.0 :
             self.pos.y = - worldsize.y/2.0
-        
+
         speed = (v.length - 0.5) / 2
-        speed = min(1, max(0, speed)) 
+        speed = min(1, max(0, speed))
         if v:
             v = v.normalize()
 
@@ -43,10 +43,10 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
 
         v2 =  v * self.speed * speed
         f = dt * 2
-        self.velocity = v2 * f + self.velocity * (1 - f) 
+        self.velocity = v2 * f + self.velocity * (1 - f)
         self.pos += self.velocity * dt * boost
 
-        self.dir = -1 if abs(v.angle) > math.pi/2 else 1
+        self.dir = -1 if self.velocity.x < 0 else 1
         self.angle = v.y/2* -self.dir * speed
 
     def onMouseClick(self, button, position):

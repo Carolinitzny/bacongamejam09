@@ -19,7 +19,7 @@ from base import *
 from fish import Fish
 from floor import Floor
 
-fishtimer = 0 
+fishtimer = 0
 
 world = []
 floor = Floor()
@@ -54,8 +54,7 @@ while True:
         fish = Fish(player)
         world.append(fish)
         fishtimer = uniform(0, 5)
-        print "fish", fishtimer
-    
+
     for a in world:
         if isinstance(a, Updatable):
             a.update(dt)
