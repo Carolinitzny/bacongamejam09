@@ -21,7 +21,7 @@ class Fish(Drawable, Updatable, Mortal):
         self.image = effects.apply(fish01, effects.Multiply(self.color))
         self.dir = 1
         self.angle = 0
-        self.pos = Vector(choice((-1,1))* 1.1 * worldsize.x* 0.5 + player.pos.x, uniform(-0.5,0.5)*worldsize.y)
+        self.pos = Vector(choice((-1,1))* 1.1 * worldsize.x* 0.5 + player.pos.x, uniform(-0.5,0.5)*worldsize.y- 0.3)
         
         self.player = player
         self.velocity = Vector(uniform(-1,1),0)

@@ -39,6 +39,7 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
         boost = 1
         if self.eating > 0:
             boost = 5
+            self.eating -= dt 
 
 
         v2 =  v * self.speed * speed
