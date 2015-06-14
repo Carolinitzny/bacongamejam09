@@ -41,6 +41,7 @@ class Fish(Drawable, Updatable, Mortal):
         if dist > 10:
             self.die()
         if 0 < self.player.eating < 0.1 and dist < 0.5:
+            self.player.score += 1
             self.player.life += 0.1
             self.die()
 

@@ -9,8 +9,6 @@ class WarningSign(Drawable):
     def __init__(self):
         Drawable.__init__(self)
         self.lighting = False
-
-        self.pos = Vector(100, 100)
         self.sharktimer = 0
 
     def draw(self, surface, camera):
@@ -21,4 +19,4 @@ class WarningSign(Drawable):
             should_draw = math.sin(self.sharktimer * math.pi * 2 * 4) < 0
 
         if should_draw:
-            draw(surface, warningSign, self.pos, size=Vector(100, None))
+            draw(surface, warningSign, Vector(screensize.x/2, 50), origin=Vector(0.5, 0), size=Vector(100, None))

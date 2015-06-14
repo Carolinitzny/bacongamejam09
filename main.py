@@ -16,6 +16,7 @@ clock = pygame.time.Clock()
 
 # http://freesound.org/people/klankbeeld/sounds/137109/
 pygame.mixer.music.load('snd/background.mp3')
+pygame.mixer.music.set_volume(1)
 pygame.mixer.music.play()
 
 import resources
@@ -27,6 +28,7 @@ from shark import Shark
 from warning import WarningSign
 from hideout import hideout_choices
 from hunger import Hunger
+from score import Score
 
 fishtimer = 0
 sharktimer = 10
@@ -53,7 +55,7 @@ def generate(start, end):
 world = []
 
 def start_game():
-    global world, game_running, player, warningSign, floor, hunger
+    global world, game_running, player, warningSign, floor, hunger, score
     world = []
     floor = Floor()
     world.append(floor)
@@ -63,6 +65,8 @@ def start_game():
     world.append(warningSign)
     hunger = Hunger(player)
     world.append(hunger)
+    score = Score(player)
+    world.append(score)
 
     generate(-10, 10)
     game_running = True
@@ -177,6 +181,7 @@ while True:
             img = tutorial_images[tutorial-1]
         else:
             img = [resources.tutorial_starved, resources.tutorial_gameover][player.death_reason]
+            score.draw(screen, camera)
         camera.translate = Vector(0, 0)
         draw(screen, img, Vector(0, 0), size=Vector(2, None), camera=camera)
         draw(screen, resources.tutorial_next, worldsize * 0.4, size=Vector(0.5, None), camera=camera)

@@ -30,6 +30,7 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
         self.is_hidding_in = None
         self.life = 1
         self.death_reason = 0
+        self.score = 0
 
     def update(self, dt):
         self.light = self.is_hidding_in == None

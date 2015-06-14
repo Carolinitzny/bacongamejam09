@@ -43,3 +43,5 @@ nom04 = pygame.mixer.Sound("snd/nom04.ogg")
 nom05 = pygame.mixer.Sound("snd/nom05.ogg")
 
 nom = [nom01, nom02, nom03, nom04, nom05]
+
+font = pygame.font.Font('font/Ranchers-Regular.ttf', 50)
