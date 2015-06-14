@@ -28,6 +28,13 @@ class Add(_MathOp):
     def op(self, a, b):
         return a + b
 
+class Fade(object):
+    def __init__(self, alpha):
+        self.alpha = alpha
+
+    def __call__(self, color, *_):
+        return (color[0], color[1], color[2], int(color[3] * self.alpha))
+
 
 def apply(img, kernel):
     """applies the kernel (function of signature: color, image, x, y) to every pixel of the surface"""

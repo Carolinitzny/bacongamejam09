@@ -16,6 +16,7 @@ class Fish(Drawable, Updatable, Mortal):
 
     def __init__(self, player):
         super(Fish, self).__init__()
+
         self.size = uniform(0.2, 0.35)
         self.color = (randint(100, 255),randint(100, 255),randint(100, 255))
         self.image = effects.apply(choice(fishes), effects.Multiply(self.color))

@@ -6,9 +6,14 @@ from vector import Vector
 from resources import player
 from config import screensize, worldsize
 from util import draw
+from random import random, randint
+
+from bubble import Bubble
 
 class Player(Drawable, Updatable, Mortal, MouseClickListener):
     def __init__(self):
+        super(Player, self).__init__()
+
         self.pos = Vector(0, 0)
         self.size = 1
         #Richtung in die er schaut (1 nach rechts, -1 nach links)
@@ -39,8 +44,7 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
         boost = 1
         if self.eating > 0:
             boost = 5
-            self.eating -= dt 
-
+            self.eating -= dt
 
         v2 =  v * self.speed * speed
         f = dt * 2
@@ -57,6 +61,13 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
             self.angle = math.pi - (math.pi - self.angle)/2 + (math.pi if self.angle > 0 else 0)
         else:
             self.angle /= 2
+
+        # sometimes, spawn bubbles
+        if random() < dt*2:
+            from main import world
+            for x in range(randint(0, 10)):
+                world.insert(0, Bubble(self.pos + Vector(random()-0.5, random()-0.5) * 0.1  ))
+
 
     def onMouseClick(self, button, position):
         if button == 3:

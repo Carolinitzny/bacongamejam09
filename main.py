@@ -62,6 +62,10 @@ while True:
     f = dt * 1
     camera.translate.x = camera.translate.x * (1 - f) + f * player.pos.x
 
+    def alive(a):
+        return not isinstance(a, Mortal) or a.alive
+    world = filter(alive, world)
+
     #draw
     screen.fill((5,12,20))
 
