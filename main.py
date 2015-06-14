@@ -32,10 +32,12 @@ tutorial_images = list(reversed([resources.tutorial_player, resources.tutorial_f
 game_running = False
 
 def generate(start, end):
-    num = int(round(0.2 * (end - start) * random()))
-    for i in range(num):
+    # num = int(round(0.6 * (end - start) * random()))
+
+    for x in range(int(round(start)), int(round(end))):
+        if random() > 0.3: continue
         HideoutClass = choice(hideout_choices)
-        hideout = HideoutClass(player, uniform(start,end))
+        hideout = HideoutClass(player, x + uniform(-0.5, 0.5))
         world.append(hideout)
 
 
@@ -111,8 +113,9 @@ while True:
                 a.update(dt)
 
     if game_running:
-        f = dt * 1
-        camera.translate.x = camera.translate.x * (1 - f) + f * player.pos.x
+        # f = dt * 1
+        # camera.translate.x = camera.translate.x * (1 - f) + f * player.pos.x
+        camera.translate.x += dt * 0.7
 
     def alive(a):
         return not isinstance(a, Mortal) or a.alive

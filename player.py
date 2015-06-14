@@ -26,8 +26,11 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
         self.velocity = Vector(0,0)
         self.eating = 0
         self.camera = camera
+        self.is_hidding_in = None
 
     def update(self, dt):
+        self.light = self.is_hidding_in == None
+        self.is_hidding_in = None
         m = Vector(* pygame.mouse.get_pos())
         v = (self.camera.ray(m) - self.pos)
         #untere Grenze

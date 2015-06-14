@@ -23,9 +23,14 @@ class Shark(Drawable, Mortal, Updatable):
         self.velocity = Vector(3,0)
         self.alive = True
 
+
     def update(self, dt):
+        dist = abs((self.player.pos.x - self.pos.x))
 
         self.pos += self.velocity * dt
+        
+        if dist > screensize.x:
+            self.die()
 
     def draw(self, surface, camera):
         draw(surface, shark, self.pos, size=Vector(self.size, None),scale=Vector(self.dir, 1), angle=self.angle, camera=camera)
