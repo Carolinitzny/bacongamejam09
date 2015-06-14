@@ -19,16 +19,18 @@ from base import *
 from fish import Fish
 from floor import Floor
 from shark import Shark
+from warning import WarningSign
 
 fishtimer = 0
-sharktimer = 0
+sharktimer = 10
 
 world = []
 floor = Floor()
 world.append(floor)
 player = Player()
 world.append(player)
-
+warningSign = WarningSign()
+world.append(warningSign)
 
 camera = Camera(scale=scalefactor)
 
@@ -61,6 +63,7 @@ while True:
         shark = Shark(player)
         world.append(shark)
         sharktimer = uniform(10, 20)
+    warningSign.sharktimer = sharktimer
 
     for a in world:
         if isinstance(a, Updatable):
