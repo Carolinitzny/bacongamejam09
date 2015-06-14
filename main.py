@@ -14,7 +14,6 @@ from util import draw
 screen = pygame.display.set_mode(screensize.tuple)
 clock = pygame.time.Clock()
 
-
 import resources
 from player import Player
 from base import *
@@ -28,6 +27,9 @@ fishtimer = 0
 sharktimer = 10
 left = 0
 right = 0
+tutorial = 3
+tutorial_images = list(reversed([resources.tutorial_player, resources.tutorial_food, resources.tutorial_shark]))
+game_running = False
 
 def generate(start, end):
     num = int(round(0.2 * (end - start) * random()))
@@ -42,16 +44,22 @@ def generate(start, end):
     right = max(right, end)
 
 world = []
-floor = Floor()
-world.append(floor)
-player = Player()
-world.append(player)
-warningSign = WarningSign()
-world.append(warningSign)
+
+def start_game():
+    global world, game_running, player, warningSign, floor
+    world = []
+    floor = Floor()
+    world.append(floor)
+    player = Player(camera)
+    world.append(player)
+    warningSign = WarningSign()
+    world.append(warningSign)
+
+    generate(-10, 10)
+    game_running = True
 
 camera = Camera(scale=scalefactor)
 
-generate(-10, 10)
 
 lightSurface = pygame.Surface(screensize.tuple, pygame.SRCALPHA)
 
@@ -68,37 +76,43 @@ while True:
             if event.key == pygame.K_ESCAPE:
                 sys.exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            for a in world:
-                if isinstance(a, MouseClickListener):
-                    a.onMouseClick(event.button, event.pos)
+            if tutorial > 0:
+                tutorial -= 1
+                if tutorial <= 0:
+                    start_game()
+
+            else:
+                for a in world:
+                    if isinstance(a, MouseClickListener):
+                        a.onMouseClick(event.button, event.pos)
 
     #update
-    fishtimer -= dt
-    if fishtimer <= 0:
-        fish = Fish(player)
-        world.append(fish)
-        fishtimer = uniform(0, 2)
+    if game_running:
+        fishtimer -= dt
+        if fishtimer <= 0:
+            fish = Fish(player)
+            world.append(fish)
+            fishtimer = uniform(0, 2)
 
-    sharktimer -= dt
-    if sharktimer <= 0:
-        shark = Shark(player)
-        world.append(shark)
-        sharktimer = uniform(10, 20)
-    warningSign.sharktimer = sharktimer
+        sharktimer -= dt
+        if sharktimer <= 0:
+            shark = Shark(player)
+            world.append(shark)
+            sharktimer = uniform(10, 20)
+        warningSign.sharktimer = sharktimer
 
-    if player.pos.x + worldsize.x > right:
-        generate(right, right + worldsize.x)
-    elif player.pos.x - worldsize.x < left:
-        generate(left-worldsize.x, left)
+        if player.pos.x + worldsize.x > right:
+            generate(right, right + worldsize.x)
+        elif player.pos.x - worldsize.x < left:
+            generate(left-worldsize.x, left)
 
+        for a in world:
+            if isinstance(a, Updatable):
+                a.update(dt)
 
-
-    for a in world:
-        if isinstance(a, Updatable):
-            a.update(dt)
-
-    f = dt * 1
-    camera.translate.x = camera.translate.x * (1 - f) + f * player.pos.x
+    if game_running:
+        f = dt * 1
+        camera.translate.x = camera.translate.x * (1 - f) + f * player.pos.x
 
     def alive(a):
         return not isinstance(a, Mortal) or a.alive
@@ -111,21 +125,27 @@ while True:
         if isinstance(a, Drawable) and a.lighting:
             a.draw(screen, camera)
 
-    # light drawing
-    lightSurface.fill((30, 30, 30))
-    lightPos = player.getLightPosition()
-    if player.light:
-        lightSurface.fill((120, 120, 120))
-    size = 5 if player.light else 3
-    draw(lightSurface, resources.gradient, lightPos, size=Vector(size, size), camera=camera)
-    screen.blit(lightSurface, (0, 0), special_flags=pygame.BLEND_MULT)
-    if player.light:
-        draw(screen, resources.gradient, lightPos, size=Vector(0.5, 0.5), camera=camera)
+    if game_running:
+        # light drawing
+        lightSurface.fill((30, 30, 30))
+        lightPos = player.getLightPosition()
+        if player.light:
+            lightSurface.fill((120, 120, 120))
+        size = 5 if player.light else 3
+        draw(lightSurface, resources.gradient, lightPos, size=Vector(size, size), camera=camera)
+        screen.blit(lightSurface, (0, 0), special_flags=pygame.BLEND_MULT)
+        if player.light:
+            draw(screen, resources.gradient, lightPos, size=Vector(0.5, 0.5), camera=camera)
 
     for a in world:
         if isinstance(a, Drawable) and not a.lighting:
             a.draw(screen, camera)
 
+    if not game_running:
+        img = tutorial_images[tutorial-1]
+        camera.translate = Vector(0, 0)
+        draw(screen, img, Vector(0, 0), size=Vector(2, None), camera=camera)
+        draw(screen, resources.tutorial_next, worldsize * 0.4, size=Vector(0.5, None), camera=camera)
 
     pygame.display.flip()
 

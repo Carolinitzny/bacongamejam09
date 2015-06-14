@@ -11,7 +11,7 @@ from random import random, randint
 from bubble import Bubble
 
 class Player(Drawable, Updatable, Mortal, MouseClickListener):
-    def __init__(self):
+    def __init__(self, camera):
         Drawable.__init__(self)
         Mortal.__init__(self)
 
@@ -25,11 +25,11 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
         self.light = 1
         self.velocity = Vector(0,0)
         self.eating = 0
+        self.camera = camera
 
     def update(self, dt):
-        from main import camera
         m = Vector(* pygame.mouse.get_pos())
-        v = (camera.ray(m) - self.pos)
+        v = (self.camera.ray(m) - self.pos)
         #untere Grenze
         if self.pos.y > worldsize.y/2.0 - 0.5:
             self.pos.y = worldsize.y/2.0 - 0.5
