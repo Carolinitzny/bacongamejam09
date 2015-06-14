@@ -1,4 +1,7 @@
 class Drawable(object):
+    def __init__(self):
+        self.lighting = True
+
     def draw(self, surface, camera):
         pass
 

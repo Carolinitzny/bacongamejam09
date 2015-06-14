@@ -3,12 +3,13 @@ import pygame
 pygame.init()
 
 import sys
-from random import uniform, random
+from random import uniform, random, choice
 
 
 from vector import Vector
 from config import screensize, fullscreen , scalefactor, worldsize
 from camera import Camera
+from util import draw
 
 screen = pygame.display.set_mode(screensize.tuple)
 clock = pygame.time.Clock()
@@ -21,7 +22,7 @@ from fish import Fish
 from floor import Floor
 from shark import Shark
 from warning import WarningSign
-from hideout import Hideout
+from hideout import hideout_choices
 
 fishtimer = 0
 sharktimer = 10
@@ -31,7 +32,8 @@ right = 0
 def generate(start, end):
     num = int(round(0.2 * (end - start) * random()))
     for i in range(num):
-        hideout = Hideout(player, uniform(start,end))
+        HideoutClass = choice(hideout_choices)
+        hideout = HideoutClass(player, uniform(start,end))
         world.append(hideout)
 
 
@@ -50,6 +52,9 @@ world.append(warningSign)
 camera = Camera(scale=scalefactor)
 
 generate(-10, 10)
+
+lightSurface = pygame.Surface(screensize.tuple, pygame.SRCALPHA)
+
 #main loop
 while True:
     #Zeit in Sekunden
@@ -103,8 +108,24 @@ while True:
     screen.fill((18,40,70))
 
     for a in world:
-        if isinstance(a, Drawable):
+        if isinstance(a, Drawable) and a.lighting:
             a.draw(screen, camera)
+
+    # light drawing
+    lightSurface.fill((10, 10, 10))
+    lightPos = player.pos + Vector(0.47, -0.05).rotate(-player.angle)
+    if player.light:
+        lightSurface.fill((100, 100, 100))
+    size = 5 if player.light else 3
+    draw(lightSurface, resources.gradient, lightPos, size=Vector(size, size), camera=camera)
+    screen.blit(lightSurface, (0, 0), special_flags=pygame.BLEND_MULT)
+    if player.light:
+        draw(screen, resources.gradient, lightPos, size=Vector(0.5, 0.5), camera=camera)
+
+    for a in world:
+        if isinstance(a, Drawable) and not a.lighting:
+            a.draw(screen, camera)
+
 
     pygame.display.flip()
 

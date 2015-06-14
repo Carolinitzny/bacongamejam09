@@ -10,6 +10,9 @@ from vector import Vector
 
 class Shark(Drawable, Mortal, Updatable):
     def __init__(self, player):
+        Drawable.__init__(self)
+        Mortal.__init__(self)
+
         self.x = player.pos.x-worldsize.x
         self.y = -0.45 *worldsize.y
         self.pos = Vector(self.x,self.y)
@@ -21,7 +24,7 @@ class Shark(Drawable, Mortal, Updatable):
         self.alive = True
 
     def update(self, dt):
-        
+
         self.pos += self.velocity * dt
 
     def draw(self, surface, camera):

@@ -15,7 +15,8 @@ from player import Player
 class Fish(Drawable, Updatable, Mortal):
 
     def __init__(self, player):
-        super(Fish, self).__init__()
+        Drawable.__init__(self)
+        Mortal.__init__(self)
 
         self.size = uniform(0.2, 0.35)
         self.color = (randint(100, 255),randint(100, 255),randint(100, 255))

@@ -7,7 +7,9 @@ from util import draw
 
 class WarningSign(Drawable):
     def __init__(self):
-        super(WarningSign, self).__init__()
+        Drawable.__init__(self)
+        self.lighting = False
+
         self.pos = screensize * Vector(0.5, 0.2)
         self.sharktimer = 0
 

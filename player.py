@@ -12,7 +12,8 @@ from bubble import Bubble
 
 class Player(Drawable, Updatable, Mortal, MouseClickListener):
     def __init__(self):
-        super(Player, self).__init__()
+        Drawable.__init__(self)
+        Mortal.__init__(self)
 
         self.pos = Vector(0, 0)
         self.size = 1
@@ -68,8 +69,6 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
             self.light = 1 - self.light
         if button == 1:
             self.eating = 1
-
-
 
     def draw(self, surface, camera):
         draw(surface, player, self.pos, size=Vector(self.size, None),scale =Vector(self.dir, 1), angle=self.angle, camera=camera)

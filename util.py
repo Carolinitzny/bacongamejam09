@@ -4,7 +4,7 @@ import math
 import effects
 from vector import Vector
 
-def draw(surface,img, position, angle=0, scale=None, origin=Vector(0.5,0.5), camera=None, size=None, alpha=None):
+def draw(surface,img, position, angle=0, scale=None, origin=Vector(0.5,0.5), camera=None, size=None, alpha=None, special_flags=0):
     if size != None:
         if scale == None:
             scale = Vector(1 , 1)
@@ -16,7 +16,7 @@ def draw(surface,img, position, angle=0, scale=None, origin=Vector(0.5,0.5), cam
             scale *= Vector(size.x * 1.0 / img.get_width(), size.y * 1.0 / img.get_height())
 
     if camera :
-        position, angle, scale = camera.apply(position, angle, scale)
+        position, angle, scale = camera.apply(position, angle, scale or Vector(1, 1))
 
     if scale != None:
         #flip
@@ -30,11 +30,11 @@ def draw(surface,img, position, angle=0, scale=None, origin=Vector(0.5,0.5), cam
         if w == 0 or h == 0:
             return
 
-        img = pygame.transform.scale(img, (w,h))
+        img = pygame.transform.smoothscale(img, (w,h))
 
     origin = origin - Vector(0.5,0.5)
     origin *= Vector(img.get_width(), img.get_height())
-    origin = origin.rotate(angle)
+    origin = origin.rotate(-angle)
 
     img = pygame.transform.rotate(img, math.degrees(angle))
     position = position - origin - Vector(img.get_width(), img.get_height())/2.0
@@ -43,4 +43,4 @@ def draw(surface,img, position, angle=0, scale=None, origin=Vector(0.5,0.5), cam
         alpha = min(1, max(0, alpha))
         img = effects.apply(img, effects.Fade(alpha))
 
-    surface.blit(img, position.tuple)
+    surface.blit(img, position.tuple, special_flags=special_flags)

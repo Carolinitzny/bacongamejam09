@@ -21,3 +21,5 @@ seaweed05 = pygame.image.load("gfx/seewead05.png")
 seaweed06 = pygame.image.load("gfx/seewead06.png")
 seaweed07 = pygame.image.load("gfx/seewead07.png")
 seaweed = [seaweed01,seaweed02, seaweed03, seaweed04, seaweed05, seaweed06, seaweed07]
+
+gradient = pygame.image.load("gfx/gradient.png")
