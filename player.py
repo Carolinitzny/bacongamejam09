@@ -25,8 +25,11 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
         self.light = 1
         self.velocity = Vector(0,0)
         self.eating = 0
+        self.is_hidding_in = None
 
     def update(self, dt):
+        self.light = self.is_hidding_in == None
+        self.is_hidding_in = None
         from main import camera
         m = Vector(* pygame.mouse.get_pos())
         v = (camera.ray(m) - self.pos)
