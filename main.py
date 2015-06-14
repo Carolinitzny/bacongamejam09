@@ -28,7 +28,7 @@ sharktimer = 10
 left = 0
 right = 0
 tutorial = 3
-tutorial_images = list(reversed([resources.tutorial_player, resources.tutorial_food, resources.tutorial_shark]))
+tutorial_images = list(reversed([resources.tutorial_gameover, resources.tutorial_player, resources.tutorial_food, resources.tutorial_shark]))
 game_running = False
 
 def generate(start, end):
@@ -77,6 +77,8 @@ while True:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 sys.exit()
+            elif event.key == pygame.K_s:
+                world.append(Shark(player))
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if tutorial > 0:
                 tutorial -= 1
@@ -139,6 +141,11 @@ while True:
         screen.blit(lightSurface, (0, 0), special_flags=pygame.BLEND_MULT)
         if player.light:
             draw(screen, resources.gradient, lightPos, size=Vector(0.5, 0.5), camera=camera)
+
+        if not player.alive:
+            game_running = False
+            tutorial = 4
+            world = []
 
     for a in world:
         if isinstance(a, Drawable) and not a.lighting:
