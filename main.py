@@ -113,7 +113,9 @@ while True:
 
     # light drawing
     lightSurface.fill((10, 10, 10))
-    lightPos = player.pos + Vector(0.47, -0.05).rotate(-player.angle)
+    lightPos = Vector(0.47, -0.05).rotate(-player.angle)
+    if player.dir < 0: lightPos *= -1
+    lightPos += player.pos
     if player.light:
         lightSurface.fill((100, 100, 100))
     size = 5 if player.light else 3
