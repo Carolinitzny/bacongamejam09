@@ -62,12 +62,6 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
         else:
             self.angle /= 2
 
-        # sometimes, spawn bubbles
-        if random() < dt*2:
-            from main import world
-            for x in range(randint(0, 10)):
-                world.insert(0, Bubble(self.pos + Vector(random()-0.5, random()-0.5) * 0.1  ))
-
 
     def onMouseClick(self, button, position):
         if button == 3:
