@@ -1,6 +1,8 @@
 import pygame
 
 player = pygame.image.load("gfx/player.png")
+head = pygame.image.load("gfx/head.png")
+body = pygame.image.load("gfx/body.png")
 
 bubble = pygame.image.load("gfx/bubble.png")
 

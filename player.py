@@ -3,7 +3,7 @@ import pygame
 
 from base import *
 from vector import Vector
-from resources import player
+from resources import head, body
 from config import screensize, worldsize
 from util import draw
 from random import random, randint
@@ -44,7 +44,7 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
 
         boost = 1
         if self.eating > 0:
-            boost = 5
+            boost = (1-self.eating) * 5
             self.eating -= dt
 
         v2 =  v * self.speed * speed
@@ -63,6 +63,10 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
         else:
             self.angle /= 2
 
+        # create image to blit to
+        self.imagesize = Vector(body.get_width(), body.get_height())
+        self.image = pygame.Surface(self.imagesize.tuple, pygame.SRCALPHA)
+
 
     def onMouseClick(self, button, position):
         if button == 3:
@@ -71,4 +75,9 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
             self.eating = 1
 
     def draw(self, surface, camera):
-        draw(surface, player, self.pos, size=Vector(self.size, None),scale =Vector(self.dir, 1), angle=self.angle, camera=camera)
+        self.image.fill((0, 0, 0, 0))
+        draw(self.image, body, Vector(0, 0), origin=Vector(0, 0))
+        angle = (0 if self.eating <= 0 else 1-self.eating)
+        draw(self.image, head, self.imagesize * Vector(0.55, 0.54), origin=Vector(0.1, 0.5), angle=angle)
+
+        draw(surface, self.image, self.pos, size=Vector(self.size, None),scale=Vector(self.dir, 1), angle=self.angle, camera=camera)
