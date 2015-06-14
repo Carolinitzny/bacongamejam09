@@ -22,10 +22,22 @@ seaweed04 = pygame.image.load("gfx/seewead04.png")
 seaweed05 = pygame.image.load("gfx/seewead05.png")
 seaweed06 = pygame.image.load("gfx/seewead06.png")
 seaweed07 = pygame.image.load("gfx/seewead07.png")
+
 seaweed = [seaweed01,seaweed02, seaweed03, seaweed04, seaweed05, seaweed06, seaweed07]
 
 gradient = pygame.image.load("gfx/gradient.png")
+
 tutorial_food = pygame.image.load("gfx/tutorial/food.png")
 tutorial_player = pygame.image.load("gfx/tutorial/player.png")
 tutorial_shark = pygame.image.load("gfx/tutorial/shark.png")
 tutorial_next = pygame.image.load("gfx/tutorial/next.png")
+
+
+
+nom01 = pygame.mixer.Sound("snd/nom01.ogg") 
+nom02 = pygame.mixer.Sound("snd/nom02.ogg") 
+nom03 = pygame.mixer.Sound("snd/nom03.ogg") 
+nom04 = pygame.mixer.Sound("snd/nom04.ogg") 
+nom05 = pygame.mixer.Sound("snd/nom05.ogg") 
+
+nom = [nom01, nom02, nom03, nom04, nom05]

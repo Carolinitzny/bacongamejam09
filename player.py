@@ -1,9 +1,10 @@
 import math
 import pygame
+from random import choice
 
 from base import *
 from vector import Vector
-from resources import head, body
+from resources import head, body, nom
 from config import screensize, worldsize
 from util import draw
 from random import random, randint
@@ -76,6 +77,8 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
             self.light = 1 - self.light
         if button == 1:
             self.eating = 1
+            choice(nom).play()
+
 
     def relpos(self, pos):
         pos = pos.rotate(-self.angle)
