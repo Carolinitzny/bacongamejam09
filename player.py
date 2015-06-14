@@ -28,9 +28,18 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
         self.eating = 0
         self.camera = camera
         self.is_hidding_in = None
+        self.life = 1
+        self.death_reason = 0
 
     def update(self, dt):
         self.light = self.is_hidding_in == None
+        self.life -= dt*0.03
+        self.life = min(1, max(0, self.life))
+
+        if self.life <= 0:
+            self.die()
+            self.death_reason = 0
+
         self.is_hidding_in = None
         m = Vector(* pygame.mouse.get_pos())
         v = (self.camera.ray(m) - self.pos)
@@ -76,8 +85,11 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
         if button == 3:
             self.light = 1 - self.light
         if button == 1:
-            self.eating = 1
-            choice(nom).play()
+            if self.eating <= 0:
+                self.eating = 1
+                snd = choice(nom)
+                snd.set_volume(0.2)
+                snd.play()
 
 
     def relpos(self, pos):

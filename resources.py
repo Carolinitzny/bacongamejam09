@@ -8,6 +8,7 @@ bubble = pygame.image.load("gfx/bubble.png")
 
 shark = pygame.image.load("gfx/shark.png")
 warningSign = pygame.image.load("gfx/warning.png")
+hunger = pygame.image.load("gfx/hunger.png")
 
 fish01 = pygame.image.load("gfx/fish01.png")
 fish02 = pygame.image.load("gfx/fish02.png")
@@ -26,12 +27,14 @@ seaweed07 = pygame.image.load("gfx/seewead07.png")
 seaweed = [seaweed01,seaweed02, seaweed03, seaweed04, seaweed05, seaweed06, seaweed07]
 
 gradient = pygame.image.load("gfx/gradient.png")
+rays = pygame.image.load("gfx/rays.png")
 
 tutorial_food = pygame.image.load("gfx/tutorial/food.png")
 tutorial_player = pygame.image.load("gfx/tutorial/player.png")
 tutorial_shark = pygame.image.load("gfx/tutorial/shark.png")
 tutorial_next = pygame.image.load("gfx/tutorial/next.png")
 tutorial_gameover = pygame.image.load("gfx/tutorial/gameover.png")
+tutorial_starved = pygame.image.load("gfx/tutorial/starved.png")
 
 nom01 = pygame.mixer.Sound("snd/nom01.ogg")
 nom02 = pygame.mixer.Sound("snd/nom02.ogg")

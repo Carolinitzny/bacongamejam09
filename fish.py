@@ -32,7 +32,7 @@ class Fish(Drawable, Updatable, Mortal):
         self.fear = False
 
     def update(self, dt):
-        dist = (self.player.getMouthPosition() - self.pos).length
+        dist = (self.player.pos - self.pos).length
         #if ( dist < 0.5 :
             # self.dir *= -1
 
@@ -41,6 +41,7 @@ class Fish(Drawable, Updatable, Mortal):
         if dist > 10:
             self.die()
         if 0 < self.player.eating < 0.1 and dist < 0.5:
+            self.player.life += 0.1
             self.die()
 
         self.fear = self.player.eating > 0.1 and dist < 2

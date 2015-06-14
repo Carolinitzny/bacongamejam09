@@ -28,7 +28,7 @@ class Shark(Drawable, Mortal, Updatable):
     def update(self, dt):
         dist = abs(self.player.pos.x - self.pos.x)
 
-        if dist > worldsize.x:
+        if dist > worldsize.x*1.3:
             self.die()
 
         self.sees_player = (self.player.is_hidding_in == None)
@@ -40,6 +40,7 @@ class Shark(Drawable, Mortal, Updatable):
             self.velocity = self.velocity * (1 - f) + f * diff
 
             if dist < 0.5:
+                self.player.death_reason = 1
                 self.player.die()
         else:
             self.velocity.y *= 1 - (2 * dt)

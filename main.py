@@ -14,6 +14,10 @@ from util import draw
 screen = pygame.display.set_mode(screensize.tuple)
 clock = pygame.time.Clock()
 
+# http://freesound.org/people/klankbeeld/sounds/137109/
+pygame.mixer.music.load('snd/background.mp3')
+pygame.mixer.music.play()
+
 import resources
 from player import Player
 from base import *
@@ -22,13 +26,14 @@ from floor import Floor
 from shark import Shark
 from warning import WarningSign
 from hideout import hideout_choices
+from hunger import Hunger
 
 fishtimer = 0
 sharktimer = 10
 left = 0
 right = 0
 tutorial = 3
-tutorial_images = list(reversed([resources.tutorial_gameover, resources.tutorial_player, resources.tutorial_food, resources.tutorial_shark]))
+tutorial_images = list(reversed([resources.tutorial_player, resources.tutorial_food, resources.tutorial_shark]))
 game_running = False
 
 def generate(start, end):
@@ -48,7 +53,7 @@ def generate(start, end):
 world = []
 
 def start_game():
-    global world, game_running, player, warningSign, floor
+    global world, game_running, player, warningSign, floor, hunger
     world = []
     floor = Floor()
     world.append(floor)
@@ -56,6 +61,8 @@ def start_game():
     world.append(player)
     warningSign = WarningSign()
     world.append(warningSign)
+    hunger = Hunger(player)
+    world.append(hunger)
 
     generate(-10, 10)
     game_running = True
@@ -64,6 +71,7 @@ camera = Camera(scale=scalefactor)
 
 
 lightSurface = pygame.Surface(screensize.tuple, pygame.SRCALPHA)
+lightIntensity = 1
 
 #main loop
 while True:
@@ -114,14 +122,23 @@ while True:
             if isinstance(a, Updatable):
                 a.update(dt)
 
+
     if game_running:
-        # f = dt * 1
-        # camera.translate.x = camera.translate.x * (1 - f) + f * player.pos.x
-        camera.translate.x += dt * 0.7
+        f = dt * 2
+        camera.translate.x = camera.translate.x * (1 - f) + f * player.pos.x
+        # camera.translate.x += dt * 0.7
 
     def alive(a):
         return not isinstance(a, Mortal) or a.alive
     world = filter(alive, world)
+
+    if game_running:
+        # check for sharks
+        warningSign.shark_alive = False
+        for a in world:
+            if isinstance(a, Shark):
+                warningSign.shark_alive = True
+
 
     #draw
     screen.fill((18,40,70))
@@ -132,10 +149,14 @@ while True:
 
     if game_running:
         # light drawing
-        lightSurface.fill((30, 30, 30))
+        if player.light: lightIntensity += dt * 2
+        else: lightIntensity -= dt * 2
+        lightIntensity = min(1, max(0, lightIntensity))
+
+        f = 30 + lightIntensity * 90
+        lightSurface.fill((f, f, f))
+
         lightPos = player.getLightPosition()
-        if player.light:
-            lightSurface.fill((120, 120, 120))
         size = 5 if player.light else 3
         draw(lightSurface, resources.gradient, lightPos, size=Vector(size, size), camera=camera)
         screen.blit(lightSurface, (0, 0), special_flags=pygame.BLEND_MULT)
@@ -152,7 +173,10 @@ while True:
             a.draw(screen, camera)
 
     if not game_running:
-        img = tutorial_images[tutorial-1]
+        if tutorial <= 3:
+            img = tutorial_images[tutorial-1]
+        else:
+            img = [resources.tutorial_starved, resources.tutorial_gameover][player.death_reason]
         camera.translate = Vector(0, 0)
         draw(screen, img, Vector(0, 0), size=Vector(2, None), camera=camera)
         draw(screen, resources.tutorial_next, worldsize * 0.4, size=Vector(0.5, None), camera=camera)
