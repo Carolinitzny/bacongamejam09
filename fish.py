@@ -29,16 +29,25 @@ class Fish(Drawable, Updatable, Mortal):
         self.velocity = Vector(uniform(-1, 1),0)
         self.time = uniform(0, math.pi)
         self.frequency = uniform(1, 15)
+        self.fear = False
 
     def update(self, dt):
         dist = (self.player.pos - self.pos).length
         #if ( dist < 0.5 :
             # self.dir *= -1
 
-        self.pos += dt*self.velocity
+        self.pos += dt*self.velocity * (3 if self.fear else 1)
         #stirbt, wenn er zu weit vom Player weg ist
         if dist > 10:
             self.die()
+        if 0 < self.player.eating < 0.1 and dist < 0.5:
+            self.die()
+
+        self.fear = self.player.eating > 0.1 and dist < 2
+
+
+
+
 
         self.time += dt
 
