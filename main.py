@@ -18,16 +18,17 @@ from player import Player
 from base import *
 from fish import Fish
 from floor import Floor
+from shark import Shark
 
 fishtimer = 0
+sharktimer = 0
 
 world = []
 floor = Floor()
 world.append(floor)
 player = Player()
 world.append(player)
-fish = Fish(player)
-world.append(fish)
+
 
 camera = Camera(scale=scalefactor)
 
@@ -55,6 +56,12 @@ while True:
         world.append(fish)
         fishtimer = uniform(0, 2)
 
+    sharktimer -= dt
+    if sharktimer <= 0:
+        shark = Shark(player)
+        world.append(shark)
+        sharktimer = uniform(10, 20)
+
     for a in world:
         if isinstance(a, Updatable):
             a.update(dt)
@@ -67,7 +74,7 @@ while True:
     world = filter(alive, world)
 
     #draw
-    screen.fill((5,12,20))
+    screen.fill((18,40,70))
 
     for a in world:
         if isinstance(a, Drawable):

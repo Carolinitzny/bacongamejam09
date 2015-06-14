@@ -48,6 +48,6 @@ class Fish(Drawable, Updatable, Mortal):
 
 
     def draw(self, surface, camera):
-        draw(surface, self.image, self.pos, size=Vector(self.size, None),scale =Vector(self.dir, 1), angle=self.angle, camera=camera)
+        draw(surface, self.image, self.pos, size=Vector(self.size, None),scale=Vector(self.dir, 1), angle=self.angle, camera=camera)
 
 
