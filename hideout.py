@@ -21,12 +21,10 @@ class Hideout(Drawable, Updatable):
     def is_point_inside(self,point):
         pass
 
-
-
-    def update(self,dt):
+    def update(self,dt, world):
         self.is_player_hidding = self.is_point_inside(self.player.pos)
         if self.is_player_hidding:
-            self.player.is_hidding_in = self 
+            self.player.is_hidding_in = self
 
 
 class Rock(Hideout):
@@ -37,7 +35,7 @@ class Rock(Hideout):
         draw(surface, rock01, self.pos, size=Vector(None,1.5),origin=Vector(0.5,1),camera=camera)
 
     def is_point_inside(self, point):
-        dist = (self.pos - Vector(0, 0.75) - point).length 
+        dist = (self.pos - Vector(0, 0.75) - point).length
         return dist < 0.75
 
 
@@ -53,10 +51,9 @@ class Seaweed(Hideout):
             # img = effects.apply(img, effects.Multiply([f, f, f]))
             self.weeds.append( ( img, uniform(-1, 1)*0.4, uniform(0, 0.5), uniform(1.2, 2.5)) )
 
-    def update(self, dt):
-        Hideout.update(self, dt)
+    def update(self, dt, world):
+        Hideout.update(self, dt, world)
         self.time += dt
-
 
     def is_point_inside(self, point):
         return self.pos.x - 0.4 <= point.x <= self.pos.x + 0.4 and self.pos.y - 2.0 <= point.y <= self.pos.y

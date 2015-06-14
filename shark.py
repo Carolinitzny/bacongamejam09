@@ -25,7 +25,7 @@ class Shark(Drawable, Mortal, Updatable):
         self.sees_player = False
 
 
-    def update(self, dt):
+    def update(self, dt, world):
         dist = abs(self.player.pos.x - self.pos.x)
 
         if dist > worldsize.x*1.3:

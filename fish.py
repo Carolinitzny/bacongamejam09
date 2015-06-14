@@ -9,8 +9,7 @@ from resources import fishes
 from config import screensize, worldsize
 from util import draw
 from player import Player
-
-
+from bubble import Bubble
 
 class Fish(Drawable, Updatable, Mortal):
 
@@ -31,7 +30,7 @@ class Fish(Drawable, Updatable, Mortal):
         self.frequency = uniform(1, 15)
         self.fear = False
 
-    def update(self, dt):
+    def update(self, dt, world):
         dist = (self.player.pos - self.pos).length
         #if ( dist < 0.5 :
             # self.dir *= -1
@@ -44,12 +43,10 @@ class Fish(Drawable, Updatable, Mortal):
             self.player.score += 1
             self.player.life += 0.1
             self.die()
+            for i in range(randint(2, 5)):
+                world.append(Bubble(self.pos))
 
         self.fear = self.player.eating > 0.1 and dist < 2
-
-
-
-
 
         self.time += dt
 

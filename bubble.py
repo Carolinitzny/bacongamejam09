@@ -11,14 +11,16 @@ from util import draw
 class Bubble(Drawable, Updatable, Mortal):
 
     def __init__(self, pos, scale=1):
-        super(Bubble, self).__init__()
+        Drawable.__init__(self)
+        Updatable.__init__(self)
+        Mortal.__init__(self)
 
         self.size = uniform(0.01, 0.1) * scale
         self.pos = pos
-        self.velocity = Vector(0, uniform(-0.4, -0.6))
+        self.velocity = Vector(uniform(-0.02, 0.02), uniform(-0.4, -0.6))
         self.lifetime = 0
 
-    def update(self, dt):
+    def update(self, dt, world):
         self.lifetime += dt
         self.pos += self.velocity * dt
         self.size *= 1 + dt * 0.1

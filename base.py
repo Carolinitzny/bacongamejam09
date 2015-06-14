@@ -6,7 +6,7 @@ class Drawable(object):
         pass
 
 class Updatable(object):
-    def update(self, dt):
+    def update(self, dt, world):
         pass
 
 class Mortal(object):

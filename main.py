@@ -124,7 +124,7 @@ while True:
 
         for a in world:
             if isinstance(a, Updatable):
-                a.update(dt)
+                a.update(dt, world)
 
 
     if game_running:
