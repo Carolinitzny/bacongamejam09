@@ -74,6 +74,17 @@ class Player(Drawable, Updatable, Mortal, MouseClickListener):
         if button == 1:
             self.eating = 1
 
+    def relpos(self, pos):
+        pos = pos.rotate(-self.angle)
+        if self.dir < 0: pos *= -1
+        return self.pos + pos
+
+    def getMouthPosition(self):
+        return self.relpos(Vector(0.3, 0))
+
+    def getLightPosition(self):
+        return self.relpos(Vector(0.47, -0.05))
+
     def draw(self, surface, camera):
         self.image.fill((0, 0, 0, 0))
         draw(self.image, body, Vector(0, 0), origin=Vector(0, 0))

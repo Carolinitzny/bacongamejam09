@@ -112,12 +112,10 @@ while True:
             a.draw(screen, camera)
 
     # light drawing
-    lightSurface.fill((10, 10, 10))
-    lightPos = Vector(0.47, -0.05).rotate(-player.angle)
-    if player.dir < 0: lightPos *= -1
-    lightPos += player.pos
+    lightSurface.fill((30, 30, 30))
+    lightPos = player.getLightPosition()
     if player.light:
-        lightSurface.fill((100, 100, 100))
+        lightSurface.fill((120, 120, 120))
     size = 5 if player.light else 3
     draw(lightSurface, resources.gradient, lightPos, size=Vector(size, size), camera=camera)
     screen.blit(lightSurface, (0, 0), special_flags=pygame.BLEND_MULT)
