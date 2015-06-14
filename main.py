@@ -3,10 +3,11 @@ import pygame
 pygame.init()
 
 import sys
-from random import uniform
+from random import uniform, random
+
 
 from vector import Vector
-from config import screensize, fullscreen , scalefactor
+from config import screensize, fullscreen , scalefactor, worldsize
 from camera import Camera
 
 screen = pygame.display.set_mode(screensize.tuple)
@@ -20,9 +21,23 @@ from fish import Fish
 from floor import Floor
 from shark import Shark
 from warning import WarningSign
+from hideout import Hideout
 
 fishtimer = 0
 sharktimer = 10
+left = 0
+right = 0
+
+def generate(start, end):
+    num = int(round(0.2 * (end - start) * random()))
+    for i in range(num):
+        hideout = Hideout(player, uniform(start,end))
+        world.append(hideout)
+
+
+    global left, right
+    left = min(left,start)
+    right = max(right, end)
 
 world = []
 floor = Floor()
@@ -34,6 +49,7 @@ world.append(warningSign)
 
 camera = Camera(scale=scalefactor)
 
+generate(-10, 10)
 #main loop
 while True:
     #Zeit in Sekunden
@@ -64,6 +80,13 @@ while True:
         world.append(shark)
         sharktimer = uniform(10, 20)
     warningSign.sharktimer = sharktimer
+
+    if player.pos.x + worldsize.x > right:
+        generate(right, right + worldsize.x)
+    elif player.pos.x - worldsize.x < left:
+        generate(left-worldsize.x, left)
+
+
 
     for a in world:
         if isinstance(a, Updatable):
